@@ -1,7 +1,8 @@
 let recetas = []
+
 //Declara las tarjetas donde ira la informacion
-const noticias = document.getElementById('noticias')
-const noticia = document.getElementById('noticia').content
+const contenido = document.getElementById('contenido')
+const receta = document.getElementById('receta').content
 const fragment = document.createDocumentFragment()
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -24,6 +25,7 @@ const cargaRecetas = () =>{
             recetas = response
             dibujarRecetas()
             console.log(response)
+            
         })
         .catch(err => console.error(err));
 }
@@ -31,11 +33,11 @@ const cargaRecetas = () =>{
 //Envia la informacion en html
 const dibujarRecetas = () =>{
     recetas.forEach((item) =>{
-        noticia.querySelector('img').setAttribute('src', item.image)
-        noticia.querySelector('p').textContent = item.title
-
-        const clone = noticia.cloneNode(true)
+        receta.querySelector('img').setAttribute('src', item.image)
+        receta.querySelector('h1').textContent = item.title
+    
+        const clone = receta.cloneNode(true)
         fragment.appendChild(clone)
 })
-    noticias.appendChild(fragment)
+    contenido.appendChild(fragment)
 }
