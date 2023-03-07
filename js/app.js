@@ -1,8 +1,13 @@
 let recetas = []
+let ingredientes = []
 
 //Declara las tarjetas donde ira la informacion
 const contenido = document.getElementById('contenido')
+const ingre = document.getElementById('ingredientes')
+
 const receta = document.getElementById('receta').content
+const ingrediente = document.getElementById('ingrediente').content
+
 const fragment = document.createDocumentFragment()
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -23,6 +28,7 @@ const cargaRecetas = () =>{
         .then(response => response.json())
         .then(response => {
             recetas = response
+            ingredientes = response
             dibujarRecetas()
             console.log(response)
             
@@ -32,12 +38,25 @@ const cargaRecetas = () =>{
 
 //Envia la informacion en html
 const dibujarRecetas = () =>{
+
     recetas.forEach((item) =>{
         receta.querySelector('img').setAttribute('src', item.image)
         receta.querySelector('h1').textContent = item.title
-    
+
         const clone = receta.cloneNode(true)
         fragment.appendChild(clone)
-})
+    })
+
+    ingredientes.forEach((item) =>{
+        ingrediente.querySelector('h2').textContent = item.title
+        ingrediente.querySelector('h3').textContent = item.ingredients
+
+        const cloneIngre = ingrediente.cloneNode(true)
+        fragment.appendChild(cloneIngre)
+    })
+
+
     contenido.appendChild(fragment)
+    ingre.appendChild(fragment)
+
 }
