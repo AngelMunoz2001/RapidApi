@@ -1,6 +1,8 @@
 let recetas = []
 let ingredientes = []
 
+let arrayIngredientes = []
+
 //Declara las tarjetas donde ira la informacion
 const contenido = document.getElementById('contenido')
 const ingre = document.getElementById('ingredientes')
@@ -30,6 +32,7 @@ const cargaRecetas = () =>{
             recetas = response
             ingredientes = response
             dibujarRecetas()
+            dibujarRecetas2()
             console.log(response)
             
         })
@@ -46,17 +49,22 @@ const dibujarRecetas = () =>{
         const clone = receta.cloneNode(true)
         fragment.appendChild(clone)
     })
-
-    ingredientes.forEach((item) =>{
-        ingrediente.querySelector('h2').textContent = item.title
-        ingrediente.querySelector('h3').textContent = item.ingredients
-
-        const cloneIngre = ingrediente.cloneNode(true)
-        fragment.appendChild(cloneIngre)
-    })
-
-
     contenido.appendChild(fragment)
-    ingre.appendChild(fragment)
+}
 
+const dibujarRecetas2 = () =>{
+
+    ingredientes.forEach((item2) =>{
+        arrayIngredientes = ingredientes.ingredients
+
+        arrayIngredientes.forEach((ing) =>{
+            ingrediente.querySelector('h2').textContent = ing
+
+            
+        })
+
+        const clone = ingrediente.cloneNode(true)
+        fragment.appendChild(clone)
+    })
+    ingre.appendChild(fragment)
 }
