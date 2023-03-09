@@ -1,20 +1,16 @@
-let recetas = []
-let ingredientes = []
-
-let arrayIngredientes = []
-
 //Declara las tarjetas donde ira la informacion
-const contenido = document.getElementById('contenido')
-const ingre = document.getElementById('ingredientes')
+const principal = document.getElementById('principal')
+
+const listaIngredientes = document.getElementById('ingredientes')
+const listaInstrucciones = document.getElementById('instrucciones')
 
 const receta = document.getElementById('receta').content
-const ingrediente = document.getElementById('ingrediente').content
-
 const fragment = document.createDocumentFragment()
 
 document.addEventListener('DOMContentLoaded', () =>{
     cargaRecetas()
 })
+
 
 //Carga la api y la guarda en un arreglo que se puede usar
 const cargaRecetas = () =>{
@@ -29,42 +25,53 @@ const cargaRecetas = () =>{
     fetch('https://random-recipes.p.rapidapi.com/ai-quotes/1', options)
         .then(response => response.json())
         .then(response => {
-            recetas = response
-            ingredientes = response
-            dibujarRecetas()
-            dibujarRecetas2()
-            console.log(response)
-            
+            recetaResponse = response[0]
+            dibujarRecetas(recetaResponse)
+        
         })
         .catch(err => console.error(err));
 }
 
+let nuevaReceta = document.getElementById('nuevaReceta');
+nuevaReceta.addEventListener('click', _ => {
+            location.reload();
+})
+
 //Envia la informacion en html
-const dibujarRecetas = () =>{
+const dibujarRecetas = (recetaRes) =>{
+    console.log(recetaRes)
+    ingredientes = []
+    ingredientes = recetaRes.ingredients
 
-    recetas.forEach((item) =>{
-        receta.querySelector('img').setAttribute('src', item.image)
-        receta.querySelector('h1').textContent = item.title
-
-        const clone = receta.cloneNode(true)
-        fragment.appendChild(clone)
-    })
-    contenido.appendChild(fragment)
+    instrucciones = []
+    instrucciones = recetaRes.instructions
+    
+    receta.querySelector('h2').textContent = recetaRes.title
+    receta.querySelector('img').setAttribute('src', recetaRes.image)
+  
+    const clone = receta.cloneNode(true)
+    fragment.appendChild(clone)
+    principal.appendChild(fragment)
+    dibujaIngredientes(ingredientes)
+    dibujaInstrucciones(instrucciones)
+    
 }
 
-const dibujarRecetas2 = () =>{
 
-    ingredientes.forEach((item2) =>{
-        arrayIngredientes = ingredientes.ingredients
 
-        arrayIngredientes.forEach((ing) =>{
-            ingrediente.querySelector('h2').textContent = ing
-
-            
-        })
-
-        const clone = ingrediente.cloneNode(true)
-        fragment.appendChild(clone)
-    })
-    ingre.appendChild(fragment)
+const dibujaIngredientes =(ingredientes) =>{
+    ingredientes.forEach(ingrediente => {
+        const itemIngrediente = document.createElement('li')
+        itemIngrediente.textContent = ingrediente
+        listaIngredientes.appendChild(itemIngrediente)
+    });
 }
+
+const dibujaInstrucciones = (instrucciones) =>{
+    instrucciones.forEach(instruccion =>{
+        const creaInstrucciones = document.createElement('li')
+        creaInstrucciones.textContent = instruccion.text
+        listaInstrucciones.appendChild(creaInstrucciones)
+    })
+}
+

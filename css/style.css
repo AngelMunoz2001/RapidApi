@@ -36,21 +36,29 @@ button {
   text-align: center;
   padding: 10px;
 }
-/*Contenido*/
+
+/*Contenedor de las recetas*/
 #Receta {
   display: flex;
   padding: 20px;
 }
 
 /*Ingredientes*/
-#ingredientes {
+#contingredientes {
   width: 20%;
   background-color: bisque;
   margin-right: 20px;
   padding: 20px;
 }
-#ingredientes > h2 {
+#contingredientes > h2 {
   text-align: center;
+  margin-bottom: 20px;
+}
+
+#contingredientes > ul > li {
+  margin: 0px 0px 15px 10px;
+  text-align: justify;
+  width: 100%;
 }
 
 /*Receta*/
@@ -62,6 +70,25 @@ button {
 #TitRecet {
   text-align: center;
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 #ImgRecet {
+  margin-left: 20%;
+  width: 60%;
+  height: 50%;
+}
+
+#principal {
+  margin: auto;
+  padding-bottom: 50px;
+  width: 90%;
+  background-color: rgb(201, 180, 153);
+  margin-bottom: 15px;
+}
+/*Instrucciones*/
+#contenido > h3 {
+  text-align: center;
+}
+#instrucciones > li {
+  margin: 20px 0px 15px 5%;
 }
